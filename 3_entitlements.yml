@@ -1,0 +1,208 @@
+- !grant
+  role: !group everyone
+  member:
+    - !group developers
+    - !group operations
+    - !group field
+    - !group ci
+
+- !grant
+  role:
+    - !group corp/wifi/secrets-users
+  members:
+    - !group everyone
+
+# AWS grants
+# (dev/aws)
+- !grant
+  role: !group dev/aws/secrets-users
+  members:
+    - !group developers
+    - !group operations
+    - !group field
+
+# (ci/aws)
+- !grant
+  role: !group ci/aws/secrets-users
+  members:
+    - !group operations
+    - !layer ci/jenkins/executors
+    - !layer ci/jenkins/releasers
+
+- !grant
+  role:
+    - !group ci/aws/eval-image-users
+    - !group ci/aws/artifact-distributors
+  members:
+    - !group developers
+    - !group field
+
+# Jenkins grants
+- !grant
+  role: !group ci/jenkins/ssh-users
+  members:
+    - !group developers
+    - !group field
+
+- !grant
+  role: !group ci/jenkins/ssh-admins
+  members:
+    - !group operations
+
+# Hosted Conjur 5 grants (possum)
+- !grant
+  role: !group prod/possum-hosted/secrets-users
+  members:
+    - !group operations
+
+- !grant
+  role: !group conjur-cpanel/secrets-users
+  members:
+    - !group developers
+    - !group operations
+
+- !grant
+  role: !group conjur-cpanel/secrets-admins
+  members:
+    - !group operations
+
+# GoDaddy grants (DNS)
+- !grant
+  role: !group godaddy/login-users
+  members:
+    - !group operations
+
+# Internal Docker registry grants
+- !grant
+  role: !group ci/registry/secrets-users
+  members:
+  - !group operations
+
+- !grant
+  role: !group ci/registry/pushers
+  members:
+    - !layer ci/jenkins/executors
+    - !layer ci/jenkins/releasers
+
+- !grant
+  role: !group ci/registry/pullers
+  members:
+    - !group developers
+    - !group operations
+    - !layer ci/jenkins/executors
+    - !layer ci/jenkins/releasers
+
+# Quay grants - public container registry
+- !grant
+  role: !group quay/web-users
+  members:
+    - !group operations
+
+- !grant
+  role: !group quay/robot-users
+  members:
+    - !layer ci/jenkins/executors
+    - !layer ci/jenkins/releasers
+
+###########  RUBYGEMS STARTS HERE ############
+
+# RubyGems grants
+- !grant
+  role: !group rubygems/api-users
+  members:
+    - !group operations
+    - !layer ci/jenkins/releasers
+
+##############################################
+# DockerHub grants
+- !grant
+  role: !group dockerhub/robot-users
+  members:
+    - !layer ci/jenkins/executors
+    - !layer ci/jenkins/releasers
+
+# GitHub grants
+- !grant
+  role: !group github/secrets-users
+  members:
+    - !group operations
+    - !layer ci/jenkins/executors
+    - !layer ci/jenkins/releasers
+
+# Heroku grants
+- !grant
+  role: !group heroku/admin-users
+  members:
+    - !group operations
+
+- !grant
+  role: !group heroku/bot-users
+  members:
+    - !layer ci/jenkins/executors
+    - !layer ci/jenkins/releasers
+
+# Zapier grants
+- !grant
+  role: !group zapier/secrets-users
+  members:
+    - !group developers
+    - !group operations
+
+# Artifactory grants
+- !grant
+  role: !group ci/artifactory/secrets-users
+  members:
+    - !group operations
+    - !layer ci/jenkins/executors
+    - !layer ci/jenkins/releasers
+
+# Monitoring tools grants
+- !grant
+  role: !group monitoring/logentries/secrets-users
+  members:
+    - !group developers
+    - !group operations
+
+# Puppet Forge grants
+- !grant
+  role: !group prod/puppet-forge/secrets-users
+  members:
+    - !group operations
+    - !layer ci/jenkins/executors
+    - !layer ci/jenkins/releasers
+
+# Apiary grants - v4 API docs
+- !grant
+  role: !group ci/apiary/api-users
+  members:
+    - !group developers
+    - !group operations
+    - !layer ci/jenkins/releasers
+
+- !grant
+  role: !group ci/apiary/login-users
+  members:
+    - !group developers
+    - !group operations
+
+# Seal Slack bot grants
+- !grant
+  role: !group seal/api-users
+  members:
+    - !layer ci/jenkins/executors
+
+# Google Container Engine (GKE) testbed grants
+- !grant
+  role: !group ci/google-container-engine-testbed/secrets-users
+  members:
+    - !group operations
+    - !layer ci/jenkins/executors
+    - !layer ci/jenkins/releasers
+
+- !grant
+  role: !group ci/google-container-engine-testbed/secrets-managers
+  member: !user kumbirai.tanekha
+
+- !revoke
+  role: !group ci/google-container-engine-testbed/secrets-managers
+  member: []

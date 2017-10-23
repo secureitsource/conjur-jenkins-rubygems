@@ -1,0 +1,21 @@
+- !policy
+  id: rubygems
+  annotations:
+    description: Policy for API access to RubyGems, public Ruby gem repository.
+    website: https://rubygems.org
+
+  body:
+    - &variables
+      - !variable username
+      - !variable password
+      - !variable api-key
+
+    - !group
+      id: api-users
+      annotations:
+        description: Users allowed to use the RubyGems API to publish/yank gems.
+
+    - !permit
+      role: !group api-users
+      privileges: [ read, execute ]
+      resources: *variables

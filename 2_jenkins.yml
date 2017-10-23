@@ -1,0 +1,77 @@
+- !policy
+  id: jenkins
+  annotations:
+    description: Policy for Jenkins master and executors
+  body:
+  - !layer &executors-layer
+    id: executors
+    annotations:
+      description: Layer for Jenkins executor hosts
+
+  - !host-factory
+    id: executors
+    annotations:
+      description: Host Factory for Jenkins executor hosts
+    layer: [ *executors-layer ]
+
+  - !layer &releasers-layer
+    id: releasers
+    annotations:
+      description: Layer for Jenkins releaser hosts
+
+  - !host-factory
+    id: releasers
+    annotations:
+      description: Host Factory for Jenkins releaser hosts
+    layer: [ *releasers-layer ]
+
+  - &variables
+    - !variable
+      id: private-key
+      annotations:
+        description: Private SSH key for cloning GitHub repos
+        github_user: conjur-jenkins
+    - !variable
+      id: swarm-username
+      annotations:
+        description: Username Swarm nodes use to connect to master
+    - !variable
+      id: swarm-password
+      annotations:
+        description: Password Swarm nodes use to connect to master
+
+  - !group secrets-users
+  - !permit
+    role: !group secrets-users
+    privileges: [ read, execute ]
+    resources: *variables
+
+  - !group
+    id: ssh-users
+    annotations:
+      description: 'Users permitted SSH access on executors and releasers'
+  - !grant
+    role: !automatic-role
+      record: *executors-layer
+      role_name: use_host
+    member: !group ssh-users
+  - !grant
+    role: !automatic-role
+      record: *releasers-layer
+      role_name: use_host
+    member: !group ssh-users
+
+  - !group
+    id: ssh-admins
+    annotations:
+      description: 'Users permitted SSH access + passwordless sudo on executors and releasers'
+  - !grant
+    role: !automatic-role
+      record: *executors-layer
+      role_name: admin_host
+    member: !group ssh-admins
+  - !grant
+    role: !automatic-role
+      record: *releasers-layer
+      role_name: admin_host
+    member: !group ssh-admins
