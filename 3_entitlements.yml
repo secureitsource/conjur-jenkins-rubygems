@@ -2,13 +2,13 @@
 - !grant
   role: !group rubygems/api-users
   members:
-    - !group operations
+    - !group team-leads
     - !layer ci/jenkins/releasers
 
 # GitHub grants
 - !grant
   role: !group github/secrets-users
   members:
-    - !group operations
+    - !group team-leads
     - !layer ci/jenkins/executors
     - !layer ci/jenkins/releasers
