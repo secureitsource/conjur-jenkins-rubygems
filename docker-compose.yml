@@ -1,0 +1,25 @@
+version: '3'
+services:
+  conjur:
+    image: cyberark/conjur
+    command: server -a demo
+    environment:
+      DATABASE_URL: postgres://postgres@database/postgres
+      CONJUR_ADMIN_PASSWORD: admin
+      CONJUR_DATA_KEY:
+    depends_on: [ database ]
+    volumes:
+      - ./policies:/demo
+  database:
+    image: postgres:9.3
+  client:
+    image: conjurinc/cli5
+    depends_on: [ conjur ]
+    entrypoint: sleep
+    command: infinity
+    environment:
+      CONJUR_APPLIANCE_URL: http://conjur
+      CONJUR_ACCOUNT: demo
+      CONJUR_AUTHN_LOGIN: admin
+    volumes:
+      - ./policies:/demo
