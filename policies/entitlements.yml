@@ -1,0 +1,12 @@
+# RubyGems grants
+- !grant
+  role: !group rubygems/api-users
+  members:
+    - !layer jenkins/releasers
+
+# GitHub grants
+- !grant
+  role: !group jenkins/secrets-users
+  members:
+    - !layer jenkins/executors
+    - !layer jenkins/releasers
