@@ -97,16 +97,14 @@ We'll be adding the `team-leads` user group and `ci/jenkins/releasers` layer to 
 - !grant
   role: !group rubygems/api-users
   members:
-    - !group team-leads
-    - !layer ci/jenkins/releasers
+    - !layer jenkins/releasers
 
 # GitHub grants
 - !grant
-  role: !group github/secrets-users
+  role: !group jenkins/secrets-users
   members:
-    - !group team-leads
-    - !layer ci/jenkins/executors
-    - !layer ci/jenkins/releasers
+    - !layer jenkins/executors
+    - !layer jenkins/releasers
 ```
 
 ### Jenkinsfile
