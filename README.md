@@ -90,23 +90,21 @@ Last, we'll create one (1) secret variable for our private SSH key for cloning G
 
 The final policy that gets pushed to CyberArk Conjur is the one that outlines all the entitlements for our different publishing services.  In this demonstration, we'll need to be granted to two (2) roles: 1 for RubyGems API access and 1 for GitHub SSH access via `secrets-users`.
 
-We'll be adding the `team-leads` user group and `ci/jenkins/releasers` layer to both RubyGems and GitHub grants.  While our `ci/jenkins/executors` only get access to our GitHub grant for cloning and testing the source code.
+We'll be adding the `ci/jenkins/releasers` layer to both RubyGems and GitHub grants.  While our `ci/jenkins/executors` only get access to our GitHub grant for cloning and testing the source code.
 
 ```yaml
 # RubyGems grants
 - !grant
   role: !group rubygems/api-users
   members:
-    - !group team-leads
-    - !layer ci/jenkins/releasers
+    - !layer jenkins/releasers
 
 # GitHub grants
 - !grant
-  role: !group github/secrets-users
+  role: !group jenkins/secrets-users
   members:
-    - !group team-leads
-    - !layer ci/jenkins/executors
-    - !layer ci/jenkins/releasers
+    - !layer jenkins/executors
+    - !layer jenkins/releasers
 ```
 
 ### Jenkinsfile
@@ -194,4 +192,94 @@ Let's say it passed, that 5-minute clock started asking the question, "Publish t
       }
     }
   }
+```
+
+## Deploy CyberArk Conjur CE for Testing (optional)
+
+[More information on CyberArk Conjur CE](https://www.conjur.org)
+
+If you'd like to test loading the policies into CyberArk Conjur before sending to your Enterprise Edition, you may do the following:
+
+**Pre-Requisite**: `$ sudo apt-get install docker-compose`
+
+`$ ./start.sh`
+
+This will clean up any old Conjur containers and data_keys left behind and utilize Docker-Compose to orchestrate the creation of three (3) containers:
+
+* **conjurjenkinsrubygems\_conjur\_1**
+  * Conjur Master
+* **conjurjenkinsrubygems\_database\_1**
+  * Conjur PostgreSQL Database
+* **conjurjenkinsrubygems\_client\_1**
+  * Conjur CLI5
+
+Finally, to get your "admin" API key for the instance:
+
+`$ docker-compose logs | grep -i api`
+
+`conjur_1    | API key for admin: 2ystt722mvbtmw1apc4cp2xe6bh289g95t98d7fg987dfg9`
+
+## Load Policies into CyberArk Conjur
+
+### Load rubygems.yml
+
+`$ docker exec -it conjurjenkinsrubygems_client_1 conjur policy load root /demo/rubygems.yml`
+
+`Enter your username to log into Conjur:`  **admin**
+
+`Please enter your password (it will not be echoed):` **API key for admin** grabbed in previous section.
+
+We're executing an interactive TTY shell on the CyberArk Conjur CLI5 container that's sending the command to load `/demo/rubygems.yml` into the root namespace in CyberArk Conjur.
+
+If successful, the following should be returned:
+
+```json
+Loaded policy 'root'
+{
+  "created_roles": {
+  },
+  "version": 1
+}
+```
+
+### Load jenkins.yml
+
+`$ docker exec -it conjurjenkinsrubygems_client_1 conjur policy load root /demo/jenkins.yml`
+
+`Enter your username to log into Conjur:`  **admin**
+
+`Please enter your password (it will not be echoed):` **API key for admin** grabbed in previous section.
+
+We're executing an interactive TTY shell on the CyberArk Conjur CLI5 container that's sending the command to load `/demo/jenkins.yml` into the root namespace in CyberArk Conjur.
+
+If successful, the following should be returned:
+
+```json
+Loaded policy 'root'
+{
+  "created_roles": {
+  },
+  "version": 2
+}
+```
+
+### Load entitlements.yml
+
+`$ docker exec -it conjurjenkinsrubygems_client_1 conjur policy load root /demo/entitlements.yml`
+
+`Enter your username to log into Conjur:`  **admin**
+
+`Please enter your password (it will not be echoed):` **API key for admin** grabbed in previous section.
+
+We're executing an interactive TTY shell on the CyberArk Conjur CLI5 container that's sending the command to load `/demo/entitlements.yml` into the root namespace in CyberArk Conjur.
+
+If successful, the following should be returned:
+
+```json
+Loaded policy 'root'
+{
+  "created_roles": {
+  },
+  "version": 3
+}
 ```
