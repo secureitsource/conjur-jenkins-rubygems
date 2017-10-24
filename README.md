@@ -228,6 +228,7 @@ Finally, to get your "admin" API key for the instance:
 `$ docker exec -it conjurjenkinsrubygems_client_1 conjur policy load root /demo/rubygems.yml`
 
 `Enter your username to log into Conjur:`  **admin**
+
 `Please enter your password (it will not be echoed):` **API key for admin** grabbed in previous section.
 
 We're executing an interactive TTY shell on the CyberArk Conjur CLI5 container that's sending the command to load `/demo/rubygems.yml` into the root namespace in CyberArk Conjur.
@@ -248,6 +249,7 @@ Loaded policy 'root'
 `$ docker exec -it conjurjenkinsrubygems_client_1 conjur policy load root /demo/jenkins.yml`
 
 `Enter your username to log into Conjur:`  **admin**
+
 `Please enter your password (it will not be echoed):` **API key for admin** grabbed in previous section.
 
 We're executing an interactive TTY shell on the CyberArk Conjur CLI5 container that's sending the command to load `/demo/jenkins.yml` into the root namespace in CyberArk Conjur.
@@ -268,6 +270,7 @@ Loaded policy 'root'
 `$ docker exec -it conjurjenkinsrubygems_client_1 conjur policy load root /demo/entitlements.yml`
 
 `Enter your username to log into Conjur:`  **admin**
+
 `Please enter your password (it will not be echoed):` **API key for admin** grabbed in previous section.
 
 We're executing an interactive TTY shell on the CyberArk Conjur CLI5 container that's sending the command to load `/demo/entitlements.yml` into the root namespace in CyberArk Conjur.
