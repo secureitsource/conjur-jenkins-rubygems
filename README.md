@@ -208,11 +208,11 @@ If you'd like to test loading the policies into CyberArk Conjur before sending t
 
 This will clean up any old Conjur containers and data_keys left behind and utilize Docker-Compose to orchestrate the creation of three (3) containers:
 
-* conjurjenkinsrubygems\_conjur\_1
+* **conjurjenkinsrubygems\_conjur\_1**
   * Conjur Master
-* conjurjenkinsrubygems\_database\_1
+* **conjurjenkinsrubygems\_database\_1**
   * Conjur PostgreSQL Database
-* conjurjenkinsrubygems\_client\_1
+* **conjurjenkinsrubygems\_client\_1**
   * Conjur CLI5
 
 Finally, to get your "admin" API key for the instance:
