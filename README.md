@@ -225,7 +225,7 @@ Finally, to get your "admin" API key for the instance:
 
 ### Load rubygems.yml
 
-`$ docker exec -it conjurjenkinsrubygems\_client\_1 conjur policy load root /demo/rubygems.yml`
+`$ docker exec -it conjurjenkinsrubygems_client_1 conjur policy load root /demo/rubygems.yml`
 
 `Enter your username to log into Conjur:`  **admin**
 `Please enter your password (it will not be echoed):` **API key for admin** grabbed in previous section.
@@ -245,7 +245,7 @@ Loaded policy 'root'
 
 ### Load jenkins.yml
 
-`$ docker exec -it conjurjenkinsrubygems\_client\_1 conjur policy load root /demo/jenkins.yml`
+`$ docker exec -it conjurjenkinsrubygems_client_1 conjur policy load root /demo/jenkins.yml`
 
 `Enter your username to log into Conjur:`  **admin**
 `Please enter your password (it will not be echoed):` **API key for admin** grabbed in previous section.
@@ -265,7 +265,7 @@ Loaded policy 'root'
 
 ### Load entitlements.yml
 
-`$ docker exec -it conjurjenkinsrubygems\_client\_1 conjur policy load root /demo/entitlements.yml`
+`$ docker exec -it conjurjenkinsrubygems_client_1 conjur policy load root /demo/entitlements.yml`
 
 `Enter your username to log into Conjur:`  **admin**
 `Please enter your password (it will not be echoed):` **API key for admin** grabbed in previous section.
