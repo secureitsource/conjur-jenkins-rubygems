@@ -90,7 +90,7 @@ Last, we'll create one (1) secret variable for our private SSH key for cloning G
 
 The final policy that gets pushed to CyberArk Conjur is the one that outlines all the entitlements for our different publishing services.  In this demonstration, we'll need to be granted to two (2) roles: 1 for RubyGems API access and 1 for GitHub SSH access via `secrets-users`.
 
-We'll be adding the `team-leads` user group and `ci/jenkins/releasers` layer to both RubyGems and GitHub grants.  While our `ci/jenkins/executors` only get access to our GitHub grant for cloning and testing the source code.
+We'll be adding the `ci/jenkins/releasers` layer to both RubyGems and GitHub grants.  While our `ci/jenkins/executors` only get access to our GitHub grant for cloning and testing the source code.
 
 ```yaml
 # RubyGems grants
