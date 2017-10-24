@@ -6,7 +6,7 @@ This is a demonstration of how to test and publish a RubyGem to the public RubyG
 
 ### rubygems.yml
 
-[View rubygems.yml](1_rubygems.yml)
+[View rubygems.yml](policies/rubygems.yml)
 
 This policy creates three (3) secret variables to handle authentication to RubyGems via API - `username`, `password`, and `API key`.
 
@@ -33,7 +33,7 @@ This policy also creates a user group, called `api-users`, and allows them to re
 
 ### jenkins.yml
 
-[View jenkins.yml](2_jenkins.yml)
+[View jenkins.yml](policies/jenkins.yml)
 
 This policy is for the Jenkins agents that will be testing the RubyGem and publishing it to the public RubyGems repository.
 
@@ -86,7 +86,7 @@ Last, we'll create one (1) secret variable for our private SSH key for cloning G
 
 ### entitlements.yml
 
-[View entitlements.yml](3_entitlements.yml)
+[View entitlements.yml](policies/entitlements.yml)
 
 The final policy that gets pushed to CyberArk Conjur is the one that outlines all the entitlements for our different publishing services.  In this demonstration, we'll need to be granted to two (2) roles: 1 for RubyGems API access and 1 for GitHub SSH access via `secrets-users`.
 
