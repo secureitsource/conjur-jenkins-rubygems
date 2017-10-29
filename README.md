@@ -2,6 +2,14 @@
 
 This is a demonstration of how to test and publish a RubyGem to the public RubyGems repository using CyberArk Conjur for Secrets Management and Jenkins for CI/CD.
 
+## Miss the Live Webinar?
+
+Never fear!  I've got you covered!
+
+On-Demand Webinar: [Orchestrating Trust in your DevOps Pipeline](http://pages.cloudbees.com/2017-1026-orchestratingTrust-devops-pipeline-ondemand-registrations)
+
+[View Live Webinar Questions & Answers](webinar/q-and-a.md)
+
 ## Policy File Breakdown
 
 ### rubygems.yml
